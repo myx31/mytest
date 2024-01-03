@@ -1,0 +1,25 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+number                                                                            0x0160      10
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+tocdo                                                                             R4,R5        2
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+hiemthi                                                                           0x0006D     62
+main                                                                              0x000AB     12
+tangtoc                                                                           0x000B7     10
+giamtoc                                                                           0x000C1     12
+chaythuan                                                                         0x000CD      8
+chaynguoc                                                                         0x000D5      8
+dunglai                                                                           0x000DD      6
+dieukhien                                                                         0x000E3     23

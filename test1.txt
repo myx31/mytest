@@ -1,0 +1,297 @@
+#include <mega16a.h>
+#include <delay.h>
+#include <io.h>
+#include <delay.h>
+#include <stdio.h>
+#define thuan PINC.0
+#define nguoc PINC.1
+#define tang PINC.2
+#define giam PINC.3
+#define dung PINC.4
+
+#define ENA_PIN PIND.2 //*chan thu 2 sd kiêm soat kich hoat hoac dung 
+// Alphanumeric LCD functions
+#include <alcd.h>
+int tocdo=5;
+int i=0;
+int j=0;
+void tangtoc(void);
+void giamtoc(void);
+void chaythuan(void);
+void chaynguoc(void);
+void dunglai(void);
+void dieukhien(void);
+char mang[16];
+// Declare your global variables here
+
+void main(void)
+{
+
+DDRD = 0x0F; //*00001111
+PORTC =0xFF;
+PORTA =0xFF;
+lcd_init(16);
+while (1)
+{ 
+      lcd_gotoxy(1,0);
+      lcd_putsf("DK_DC_BUOC "); 
+      dieukhien();
+      if(dung == 0)
+      {   
+        dunglai();
+      }
+}
+}
+void tangtoc(void)
+{    
+      tocdo = tocdo - 1;
+      if (tocdo<1) { tocdo=1;}
+      lcd_gotoxy(12,0);
+      sprintf(mang,"%u ",tocdo); 
+      lcd_puts(mang);    
+}
+void giamtoc(void)
+{ 
+      tocdo = tocdo + 1; 
+      if (tocdo>10) {tocdo=10;}
+      lcd_gotoxy(12,0);
+      sprintf(mang,"%u ",tocdo); //*bien tocdo luu vao mang 
+      lcd_puts(mang);      
+}
+void chaythuan(void)
+{
+   lcd_gotoxy(1,1);
+   lcd_putsf("DC_CHAY_THUAN  ");  
+   while ( dung!=0)
+   {   
+                            
+   PORTD= 0x0A;
+   delay_ms(tocdo); 
+   PORTD= 0x0C;
+   delay_ms(tocdo);
+   PORTD= 0x05;
+   delay_ms(tocdo);
+   PORTD= 0x03;
+   delay_ms(tocdo);
+   
+   } 
+
+   
+}
+
+void chaynguoc(void)
+{
+   lcd_gotoxy(1,1);
+   lcd_putsf("DC_CHAY_NGUOC  ");   
+   while (dung!=0)
+   {  
+   
+   PORTD= 0x0A;
+   delay_ms(tocdo); 
+   PORTD= 0x0C;
+   delay_ms(tocdo);
+   PORTD= 0x05;
+   delay_ms(tocdo);
+   PORTD= 0x03;
+   delay_ms(tocdo);
+   }  
+   
+   
+}   
+void dunglai(void)
+{   
+   ENA_PIN = 0; 
+   lcd_clear();
+   lcd_gotoxy(1,0);
+   lcd_putsf("DK_DC_BUOC ");  
+   lcd_gotoxy(1,1);
+   lcd_putsf("DC_DUNG  ");
+} 
+void dieukhien(void)
+{   
+  if (thuan==0)
+  {  
+   {
+   chaythuan();
+   }
+  }
+  if (nguoc==0)
+  {
+     chaynguoc();
+   }  
+   if (tang==0)  
+   {  
+    while (tang==0);
+    tangtoc();  
+    if (thuan==0)
+    {
+    chaythuan();
+    } 
+    if (nguoc==0)
+    {
+    chaynguoc();
+    }
+   }
+   if (giam==0) 
+   {  
+    while (giam==0);
+    giamtoc();
+    if (thuan==0)
+    {
+    chaythuan();
+    }
+    if (nguoc==0)
+    {
+    chaynguoc();
+    }
+   }  
+  
+}
+
+
+-------------------------------------------------------------------------------------------------
+
+#include <mega16.h>
+#include <delay.h>
+
+unsigned char number[10] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09};
+
+void hiemthi(unsigned int x)
+{
+     unsigned int temp;
+     //unsigned char a,b,c,d;
+     unsigned char m[4],i ;
+     
+  // tach so, luu vao 4 bien a b c d   
+     temp=x;   
+     for(i=0;i<4;i++)
+     {
+     m[3-i]=temp % 10;
+     temp =temp/10;
+     } 
+     
+     // dieu khien cho LED1 sang, hiem thi chu so a 
+     PORTC.4 =0;
+     PORTB = number[m[0]];
+     delay_ms(1);
+     PORTC.4 =1;
+     // dieu khien cho LED2 sang, hiem thi chu so b 
+     PORTC.5 =0;
+     PORTB = number[m[1]];
+     delay_ms(1);
+     PORTC.5 =1;
+     // dieu khien cho LED3 sang, hiem thi chu so c 
+     PORTC.6 =0;
+     PORTB = number[m[2]];
+     delay_ms(1);
+     PORTC.6 =1;     
+     // dieu khien cho LED4 sang, hiem thi chu so d 
+     PORTC.7 =0;
+     PORTB = number[m[3]];
+     delay_ms(1);
+     PORTC.7 =1;   
+}
+
+void main(void)
+{
+
+
+// Input/Output Ports initialization
+// Port A initialization
+// Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+DDRA=(0<<DDA7) | (0<<DDA6) | (0<<DDA5) | (0<<DDA4) | (0<<DDA3) | (0<<DDA2) | (0<<DDA1) | (0<<DDA0);
+// State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+PORTA=(0<<PORTA7) | (0<<PORTA6) | (0<<PORTA5) | (0<<PORTA4) | (0<<PORTA3) | (0<<PORTA2) | (0<<PORTA1) | (0<<PORTA0);
+DDRA=0XFF;
+PORTA=0XFF;
+// Port B initialization
+// Function: Bit7=Out Bit6=Out Bit5=Out Bit4=Out Bit3=Out Bit2=Out Bit1=Out Bit0=Out 
+DDRB=(1<<DDB7) | (1<<DDB6) | (1<<DDB5) | (1<<DDB4) | (1<<DDB3) | (1<<DDB2) | (1<<DDB1) | (1<<DDB0);
+// State: Bit7=1 Bit6=1 Bit5=1 Bit4=1 Bit3=1 Bit2=1 Bit1=1 Bit0=1 
+PORTB=(1<<PORTB7) | (1<<PORTB6) | (1<<PORTB5) | (1<<PORTB4) | (1<<PORTB3) | (1<<PORTB2) | (1<<PORTB1) | (1<<PORTB0);
+DDRB=0xFF;
+PORTB=0xFF;
+// Port C initialization
+// Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
+// State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+PORTC=(0<<PORTC7) | (0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (0<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
+DDRC=0xFF;
+PORTC=0x0F;
+// Port D initialization
+// Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+DDRD=(0<<DDD7) | (0<<DDD6) | (0<<DDD5) | (0<<DDD4) | (0<<DDD3) | (0<<DDD2) | (0<<DDD1) | (0<<DDD0);
+// State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+PORTD=(0<<PORTD7) | (0<<PORTD6) | (0<<PORTD5) | (0<<PORTD4) | (0<<PORTD3) | (0<<PORTD2) | (0<<PORTD1) | (0<<PORTD0);
+
+
+DDRD.0=1;
+DDRD.5=1;
+DDRD.7=1;
+PORTD.0=1;
+PORTD.5=0;
+PORTD.7=1;
+
+while (1)
+      {
+      hiemthi(1234);
+      }          
+}
+
+
+----------------------------------------------------------------------------------
+#include <mega16.h>
+#include <delay.h>
+
+unsigned char number[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x82, 0x8F, 0x80, 0x90, 0x88};
+unsigned char keypad[3][4]={{'6','7','8','9'},
+                            {'2','4','5','3'},
+                            {'1','A','0','B'},
+                            };
+
+void hiemthi(void)
+{    unsigned int x;
+     unsigned int temp;
+
+
+
+     }   
+
+
+void main(void)
+{
+
+// Input/Output Ports initialization
+// Port A initialization
+// Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+DDRA=(0<<DDA7) | (0<<DDA6) | (0<<DDA5) | (0<<DDA4) | (0<<DDA3) | (0<<DDA2) | (0<<DDA1) | (0<<DDA0);
+// State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+PORTA=(0<<PORTA7) | (0<<PORTA6) | (0<<PORTA5) | (0<<PORTA4) | (0<<PORTA3) | (0<<PORTA2) | (0<<PORTA1) | (0<<PORTA0);
+
+// Port B initialization
+// Function: Bit7=Out Bit6=Out Bit5=Out Bit4=Out Bit3=Out Bit2=Out Bit1=Out Bit0=Out 
+DDRB=(1<<DDB7) | (1<<DDB6) | (1<<DDB5) | (1<<DDB4) | (1<<DDB3) | (1<<DDB2) | (1<<DDB1) | (1<<DDB0);
+// State: Bit7=1 Bit6=1 Bit5=1 Bit4=1 Bit3=1 Bit2=1 Bit1=1 Bit0=1 
+PORTB=(1<<PORTB7) | (1<<PORTB6) | (1<<PORTB5) | (1<<PORTB4) | (1<<PORTB3) | (1<<PORTB2) | (1<<PORTB1) | (1<<PORTB0);
+DDRB=0xF0;
+
+// Port C initialization
+// Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
+// State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+PORTC=(0<<PORTC7) | (0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (0<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
+DDRC=0xF0;
+
+
+DDRD.0=1;
+DDRD.5=1;
+DDRD.7=1;
+PORTD.0=1;
+PORTD.5=0;
+PORTD.7=1;
+
+while (1)
+      {
+       hiemthi();
+      }          
+}

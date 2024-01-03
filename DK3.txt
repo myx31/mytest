@@ -1,0 +1,144 @@
+void tangtoc(void)
+{    
+      tocdo = tocdo - 1;
+      if (tocdo<1) { tocdo=1;}
+      lcd_gotoxy(12,0);
+      sprintf(mang,"%u ",tocdo); 
+      lcd_puts(mang);    
+}
+void giamtoc(void)
+{ 
+      tocdo = tocdo + 1; 
+      if (tocdo>10) {tocdo=10;}
+      lcd_gotoxy(12,0);
+      sprintf(mang,"%u ",tocdo); 
+      lcd_puts(mang);      
+}
+void chaythuan(void)
+{
+   lcd_gotoxy(1,1);
+   lcd_putsf("DC_CHAY_THUAN  "); 
+   DDRD.1=0;  
+   while ( dung!=0)
+   {   
+   
+   PORTD= 0x0A;
+   delay_ms(tocdo); 
+   PORTD= 0x0C;
+   delay_ms(tocdo);
+   PORTD= 0x05;
+   delay_ms(tocdo);
+   PORTD= 0x03;
+   delay_ms(tocdo);
+   
+   } 
+
+   
+}
+
+void chaynguoc(void)
+{
+   lcd_gotoxy(1,1);
+   lcd_putsf("DC_CHAY_NGUOC  ");   
+   DDRD.1=1;
+   while (dung!=0)
+   {  
+   
+   PORTD= 0x0A;
+   delay_ms(tocdo); 
+   PORTD= 0x0C;
+   delay_ms(tocdo);
+   PORTD= 0x05;
+   delay_ms(tocdo);
+   PORTD= 0x03;
+   delay_ms(tocdo);
+   }  
+   
+   
+}   
+void dunglai(void)
+{   
+   DDRB.2 = 1; 
+   ENA_PIN = 0; 
+   lcd_clear();
+   lcd_gotoxy(1,0);
+   lcd_putsf("DK_DC_BUOC ");  
+   lcd_gotoxy(1,1);
+   lcd_putsf("DC_DUNG  ");
+} 
+void dieukhien(void)
+{   
+  if (thuan==0)
+  {  
+   {
+   chaythuan();
+   }
+  }
+  if (nguoc==0)
+  {
+     chaynguoc();
+   }  
+   if (tang==0)  
+   {  
+    while (tang==0);
+    tangtoc();  
+    if (thuan==0)
+    {
+    chaythuan();
+    } 
+    if (nguoc==0)
+    {
+    chaynguoc();
+    }
+   }
+   if (giam==0) 
+   {  
+    while (giam==0);
+    giamtoc();
+    if (thuan==0)
+    {
+    chaythuan();
+    }
+    if (nguoc==0)
+    {
+    chaynguoc();
+    }
+   }  
+  
+}
+--------------------------------------------------------------------------
+void hiemthi(unsigned int x)
+{
+     unsigned int temp;
+     //unsigned char a,b,c,d;
+     unsigned char m[4],i ;
+     
+  // tach so, luu vao 4 bien a b c d   
+     temp=x;   
+     for(i=0;i<4;i++)
+     {
+     m[3-i]=temp % 10;
+     temp =temp/10;
+     } 
+     
+     // dieu khien cho LED1 sang, hiem thi chu so a 
+     PORTA.0 =0;
+     PORTB = number[m[0]];
+     delay_ms(1);
+     PORTA.0 =1;
+     // dieu khien cho LED2 sang, hiem thi chu so b 
+     PORTA.1 =0;
+     PORTB = number[m[1]];
+     delay_ms(1);
+     PORTA.1 =1;
+     // dieu khien cho LED3 sang, hiem thi chu so c 
+     PORTA.2 =0;
+     PORTB = number[m[2]];
+     delay_ms(1);
+     PORTA.2 =1;    
+     // dieu khien cho LED4 sang, hiem thi chu so d 
+     PORTA.3 =0;
+     PORTB = number[m[3]];
+     delay_ms(1);
+     PORTA.3 =1;   
+}

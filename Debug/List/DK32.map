@@ -1,0 +1,45 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+number                                                                            0x0160      10
+n                                                                                 0x016A       4
+delta_v                                                                           0x016E       4
+toc_do                                                                            0x0172       4
+setpoint                                                                          0x0176       4
+sum_e                                                                             0x017A       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ext_int0_isr                                                                      0x00069     27
+timer0_ovf_isr                                                                    0x00084     70
+hiemthi                                                                           0x000CA     62
+main                                                                              0x00108     43
+tangtoc                                                                           0x00133     23
+giamtoc                                                                           0x0014A     28
+chaythuan                                                                         0x00166     40
+chaynguoc                                                                         0x0018E     40
+dunglai                                                                           0x001B6      6
+dieukhien                                                                         0x001BC     23
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ext_int0_isr                                                                      0x00069     27
+timer0_ovf_isr                                                                    0x00084     70
+hiemthi                                                                           0x000CA     62
+main                                                                              0x00108     43
+tangtoc                                                                           0x00133     23
+giamtoc                                                                           0x0014A     28
+chaythuan                                                                         0x00166     40
+chaynguoc                                                                         0x0018E     40
+dunglai                                                                           0x001B6      6
+dieukhien                                                                         0x001BC     23

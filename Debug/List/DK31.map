@@ -1,0 +1,32 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+number                                                                            0x0160      10
+n                                                                                 0x016A       4
+delta_v                                                                           0x016E       4
+toc_do                                                                            0x0172       4
+setpoint                                                                          0x0176       4
+sum_e                                                                             0x017A       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+tocdo                                                                             R4,R5        2
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ext_int0_isr                                                                      0x0006D     27
+timer0_ovf_isr                                                                    0x00088     76
+hiemthi                                                                           0x000D4     62
+main                                                                              0x00112    141
+tangtoc                                                                           0x0019F     10
+giamtoc                                                                           0x001A9     12
+chaythuan                                                                         0x001B5      9
+chaynguoc                                                                         0x001BE      9
+dunglai                                                                           0x001C7      6
+dieukhien                                                                         0x001CD     23

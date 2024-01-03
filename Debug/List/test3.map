@@ -1,0 +1,25 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+number                                                                            0x0160      10
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+value                                                                             R4,R5        2
+captocdo                                                                          R6,R7        2
+ttdc                                                                              R8,R9        2
+duty                                                                              R11          1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+kt_start_stop                                                                     0x00064     19
+kt_up                                                                             0x00077     18
+kt_dw                                                                             0x00089     18
+hiemthi                                                                           0x0009B     58
+main                                                                              0x000D5     93
